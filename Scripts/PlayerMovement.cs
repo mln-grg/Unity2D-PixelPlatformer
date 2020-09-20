@@ -16,13 +16,13 @@ public class PlayerMovement : MonoBehaviour
     public Collider2D crouch_disable_collider;
     public Vector2 walljumpdirection;
     public float jumpforce = 16;
-    public float variablejumpforce = 0.5f;
     public float wallslidingspeed;
     public float walljumpforce;
     public float groundcheckradius;
     public float wallcheckradius;
-    public int jumplimit;
-    public int jumpcount;
+    public int jumplimit;  
+    public float jumpdelay;
+    public float jumptime;
     
 
     private Rigidbody2D rb2d;
@@ -32,11 +32,14 @@ public class PlayerMovement : MonoBehaviour
     private bool sheathe = false;
     private bool isCrouching;
     private float horizontalinput;
-    private bool canjump;
+    private bool isjumping;
+    private float jumptimecounter;
+    private int jumpcount;
     public bool isGrounded;
     private bool isTouchingWall;
     private bool isWallSliding;
-    private float horizontal_movement;    
+    private float canjump;
+    private float horizontal_movement;
     private Vector2 refvelocity = Vector2.zero;
     
     // Start is called before the first frame update
@@ -56,7 +59,9 @@ public class PlayerMovement : MonoBehaviour
             speed = movementspeed;
         horizontalinput = Input.GetAxisRaw("Horizontal");
         horizontal_movement = horizontalinput * speed;
+
         
+
         //GhostEffect
         if (horizontalinput!=0)
         {
@@ -67,14 +72,20 @@ public class PlayerMovement : MonoBehaviour
             ghost.ghosting = false;
         }
        
-        if (Input.GetButtonDown("Jump") && (isGrounded || isTouchingWall ) )
+        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || isTouchingWall ) )
         {
             Jump();
         }
-        //if(Input.GetButtonUp("Jump") && isGrounded == true)
-        //{
-        //    rb2d.velocity = new Vector2 (rb2d.velocity.x , rb2d.velocity.y + variablejumpforce );
-        //}
+        
+        if (Input.GetKey(KeyCode.Space) && isjumping == true && !isGrounded)
+        {
+            VariableJump();         
+        }
+        
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isjumping = false;
+        }
 
         if (Input.GetKeyDown("c"))
         {
@@ -86,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
             isCrouching = false;
             crouch_disable_collider.enabled = true;
         }
-        if (Input.GetKeyDown("h"))
+        if (Input.GetKeyDown(KeyCode.CapsLock))
         {
             sheathe = !sheathe;
         }
@@ -124,25 +135,42 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump() 
     {
-        if (jumpcount <= jumplimit)
+        
+        if (jumpcount <= jumplimit && (Time.time > canjump))
         {
             if (isWallSliding || isTouchingWall)
             {
                 isWallSliding = false;
                 jumpcount++;
                 Vector2 forcetoadd = new Vector2(walljumpforce * walljumpdirection.x, walljumpforce * walljumpdirection.y);
-
+                canjump = Time.time + jumpdelay;
                 rb2d.AddForce(forcetoadd, ForceMode2D.Impulse);
             }
             else
             {
+
                 rb2d.velocity = new Vector2(rb2d.velocity.x, jumpforce);
+                //rb2d.velocity = Vector2.up * jumpforce;
+        
 
             }
         }
         
     }
+    private void VariableJump()
+    {
+        if (jumptimecounter > 0)
+        {
 
+            rb2d.velocity = new Vector2(rb2d.velocity.x, jumpforce);
+            //rb2d.velocity = new Vector2(rb2d.velocity.x, jumpforce);
+            jumptimecounter -= Time.deltaTime;
+        }
+        else
+        {
+            isjumping = false;
+        }
+    }
     private void CheckSurroundings()
     {
         isGrounded = Physics2D.OverlapCircle(groundcheck.position, groundcheckradius, whatisground);
@@ -153,9 +181,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && rb2d.velocity.y <= 0)
         {
-            canjump = true;
             jumpcount = 0;
+            isjumping = true;
+            jumptimecounter = jumptime;
         }
+        
     }
 
     private void CheckIfWallSliding()

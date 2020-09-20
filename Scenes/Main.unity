@@ -2411,7 +2411,7 @@ MonoBehaviour:
   ghosteffectdelay: 0.1
   ghosteffect: {fileID: 1156174123720169698, guid: e811df225ba0e324aac849ede8954c84, type: 3}
   ghosting: 0
-  colour: {r: 0, g: 0, b: 0, a: 1}
+  colour: {r: 0.6981132, g: 0.68823427, b: 0.68823427, a: 1}
 --- !u!1 &1670713233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3514,6 +3514,10 @@ PrefabInstance:
       propertyPath: ghost
       value: 
       objectReference: {fileID: 1623688207}
+    - target: {fileID: 6411076115507110655, guid: 95a3bff95a9cf114484ddc718bbd33a1, type: 3}
+      propertyPath: jumpdelay
+      value: 0.25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95a3bff95a9cf114484ddc718bbd33a1, type: 3}
 --- !u!4 &6411076113992299276 stripped
