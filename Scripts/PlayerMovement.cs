@@ -23,13 +23,13 @@ public class PlayerMovement : MonoBehaviour
     public int jumplimit;  
     public float jumpdelay;
     public float jumptime;
-    
+    public bool drawsword = false;
 
+        
     private Rigidbody2D rb2d;
     private Animator animator;
 
     private bool isfacingright = true;
-    private bool sheathe = false;
     private bool isCrouching;
     private float horizontalinput;
     private bool isjumping;
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.CapsLock))
         {
-            sheathe = !sheathe;
+            drawsword = !drawsword;
         }
 
         
@@ -214,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("VerticalVelocity", rb2d.velocity.y);
         animator.SetBool("IsCrouching", isCrouching);
         animator.SetBool("WallSliding", isWallSliding);
-        animator.SetBool("drawSword", sheathe);
+        animator.SetBool("drawSword", drawsword);
     }
     private void OnDrawGizmos()
     {

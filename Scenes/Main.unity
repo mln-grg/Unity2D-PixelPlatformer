@@ -2408,10 +2408,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d351b6c1d724b84391c5674212094ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ghosteffectdelay: 0.1
-  ghosteffect: {fileID: 1156174123720169698, guid: e811df225ba0e324aac849ede8954c84, type: 3}
+  ghosteffectdelay1: 0.5
+  ghosteffectdelay2: 0.25
+  ghosteffectdelay3: 0.1
+  soulcontroller: {fileID: 1623688208}
+  ghosteffects:
+  - {fileID: 963124374135656464, guid: a0a8e7037de3915468f8b287b949ec1e, type: 3}
+  - {fileID: 963718544898824824, guid: 3474016ad6aad7b41a5e49cff3138b63, type: 3}
+  - {fileID: 1156174123720169698, guid: e811df225ba0e324aac849ede8954c84, type: 3}
   ghosting: 0
   colour: {r: 0.6981132, g: 0.68823427, b: 0.68823427, a: 1}
+--- !u!114 &1623688208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623688206}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ca6cf71c8e6e0478e2d8d0e8bdfa86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedmult: 0
+  soulstagetimelimit: 0
+  soulstage: 1
+--- !u!114 &1623688209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623688206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed3e8bf46be4c354ab8bed80283bdc8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1623688214}
+  noOfClicks: 0
+  playermovement: {fileID: 1623688210}
+  maxComboDelay: 1.5
+  runpunchdelay: 1
+--- !u!114 &1623688210 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6411076115507110655, guid: 95a3bff95a9cf114484ddc718bbd33a1, type: 3}
+  m_PrefabInstance: {fileID: 6411076113992299275}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623688206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e35b8e20a42fe459c8ec34572c0187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1623688214 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6411076115507110650, guid: 95a3bff95a9cf114484ddc718bbd33a1, type: 3}
+  m_PrefabInstance: {fileID: 6411076113992299275}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1670713233
 GameObject:
   m_ObjectHideFlags: 0
@@ -3517,6 +3571,14 @@ PrefabInstance:
     - target: {fileID: 6411076115507110655, guid: 95a3bff95a9cf114484ddc718bbd33a1, type: 3}
       propertyPath: jumpdelay
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6411076115507110655, guid: 95a3bff95a9cf114484ddc718bbd33a1, type: 3}
+      propertyPath: jumptime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6411076115507110655, guid: 95a3bff95a9cf114484ddc718bbd33a1, type: 3}
+      propertyPath: jumpforce
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95a3bff95a9cf114484ddc718bbd33a1, type: 3}
